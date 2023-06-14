@@ -1,0 +1,84 @@
+ function calcularIMC() {
+      var peso = document.getElementById("peso").value;
+      var altura = document.getElementById("altura").value;
+      var sexo = document.getElementById("sexo").value;
+      var edad = document.getElementById("edad").value;
+
+      var resultado = document.getElementById("resultado");
+      var error = document.getElementById("error");
+      var sugerencias = document.getElementById("sugerencias");
+      var tipoEjercicio = document.getElementById("tipo-ejercicio");
+
+      resultado.innerHTML = "";
+      error.innerHTML = "";
+      sugerencias.innerHTML = "";
+      tipoEjercicio.style.display = "none";
+
+      if (peso === "" || altura === "" || sexo === "" || edad === "") {
+        error.innerHTML = "Por favor, completa todos los campos.";
+        return;
+      }
+
+      var imc = peso / ((altura / 100) ** 2);
+      var categoria;
+
+      if (edad >= 18) {
+        if (sexo === "masculino") {
+          if (imc < 20) {
+            categoria = "Bajo peso";
+            resultado.classList.add("bajo-peso");
+            sugerencias.innerHTML = "<h2>Sugerencias</h2><ul><li>Consulta con un profesional de la salud para obtener una dieta adecuada.</li><li>Incorpora alimentos nutritivos y ricos en calorías.</li></ul>";
+            tipoEjercicio.style.display = "block";
+            tipoEjercicio.innerHTML = '<label for="ejercicio">Tipo de ejercicio:</label><select id="ejercicio"><option value="">Seleccione un tipo de ejercicio</option><option value="cardio">Cardio</option><option value="yoga">Yoga</option></select>';
+          } else if (imc < 25) {
+            categoria = "Peso normal";
+            resultado.classList.add("peso-normal");
+            sugerencias.innerHTML = "<h2>Sugerencias</h2><ul><li>Mantén una alimentación equilibrada y realiza actividad física regularmente.</li></ul>";
+            tipoEjercicio.style.display = "block";
+            tipoEjercicio.innerHTML = '<label for="ejercicio">Tipo de ejercicio:</label><select id="ejercicio"><option value="">Seleccione un tipo de ejercicio</option><option value="cardio">Cardio</option><option value="pesas">Pesas</option><option value="yoga">Yoga</option></select>';
+          } else if (imc < 30) {
+            categoria = "Sobrepeso";
+            resultado.classList.add("sobrepeso");
+            sugerencias.innerHTML = "<h2>Sugerencias</h2><ul><li>Reduce el consumo de alimentos ricos en grasas y azúcares.</li><li>Aumenta la actividad física.</li></ul>";
+            tipoEjercicio.style.display = "block";
+            tipoEjercicio.innerHTML = '<label for="ejercicio">Tipo de ejercicio:</label><select id="ejercicio"><option value="">Seleccione un tipo de ejercicio</option><option value="cardio">Cardio</option><option value="pesas">Pesas</option><option value="yoga">Yoga</option></select>';
+          } else {
+            categoria = "Obesidad";
+            resultado.classList.add("obesidad");
+            sugerencias.innerHTML = "<h2>Sugerencias</h2><ul><li>Busca ayuda profesional para recibir orientación en la alimentación y ejercicios adecuados.</li><li>Reduce la ingesta de alimentos procesados y calóricos.</li></ul>";
+            tipoEjercicio.style.display = "block";
+            tipoEjercicio.innerHTML = '<label for="ejercicio">Tipo de ejercicio:</label><select id="ejercicio"><option value="">Seleccione un tipo de ejercicio</option><option value="cardio">Cardio</option><option value="pesas">Pesas</option></select>';
+          }
+        } else if (sexo === "femenino") {
+          if (imc < 19) {
+            categoria = "Bajo peso";
+            resultado.classList.add("bajo-peso");
+            sugerencias.innerHTML = "<h2>Sugerencias</h2><ul><li>Consulta con un profesional de la salud para obtener una dieta adecuada.</li><li>Incorpora alimentos nutritivos y ricos en calorías.</li></ul>";
+            tipoEjercicio.style.display = "block";
+            tipoEjercicio.innerHTML = '<label for="ejercicio">Tipo de ejercicio:</label><select id="ejercicio"><option value="">Seleccione un tipo de ejercicio</option><option value="cardio">Cardio</option><option value="yoga">Yoga</option></select>';
+          } else if (imc < 24) {
+            categoria = "Peso normal";
+            resultado.classList.add("peso-normal");
+            sugerencias.innerHTML = "<h2>Sugerencias</h2><ul><li>Mantén una alimentación equilibrada y realiza actividad física regularmente.</li></ul>";
+            tipoEjercicio.style.display = "block";
+            tipoEjercicio.innerHTML = '<label for="ejercicio">Tipo de ejercicio:</label><select id="ejercicio"><option value="">Seleccione un tipo de ejercicio</option><option value="cardio">Cardio</option><option value="pesas">Pesas</option><option value="yoga">Yoga</option></select>';
+          } else if (imc < 29) {
+            categoria = "Sobrepeso";
+            resultado.classList.add("sobrepeso");
+            sugerencias.innerHTML = "<h2>Sugerencias</h2><ul><li>Reduce el consumo de alimentos ricos en grasas y azúcares.</li><li>Aumenta la actividad física.</li></ul>";
+            tipoEjercicio.style.display = "block";
+            tipoEjercicio.innerHTML = '<label for="ejercicio">Tipo de ejercicio:</label><select id="ejercicio"><option value="">Seleccione un tipo de ejercicio</option><option value="cardio">Cardio</option><option value="pesas">Pesas</option><option value="yoga">Yoga</option></select>';
+          } else {
+            categoria = "Obesidad";
+            resultado.classList.add("obesidad");
+            sugerencias.innerHTML = "<h2>Sugerencias</h2><ul><li>Busca ayuda profesional para recibir orientación en la alimentación y ejercicios adecuados.</li><li>Reduce la ingesta de alimentos procesados y calóricos.</li></ul>";
+            tipoEjercicio.style.display = "block";
+            tipoEjercicio.innerHTML = '<label for="ejercicio">Tipo de ejercicio:</label><select id="ejercicio"><option value="">Seleccione un tipo de ejercicio</option><option value="cardio">Cardio</option><option value="pesas">Pesas</option></select>';
+          }
+        }
+      } else {
+        error.innerHTML = "La calculadora de IMC solo está diseñada para personas mayores de 18 años.";
+        return;
+      }
+
+      resultado.innerHTML = "Tu IMC es " + imc.toFixed(2) + " - " + categoria;
